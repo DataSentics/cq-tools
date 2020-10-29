@@ -1,0 +1,21 @@
+repos:
+-   repo: local
+    hooks:
+    - id: check-display-function
+      alias: error
+      name: check-display-function
+      description: Check presence of display() function
+      entry: python checks/check_display_function.py
+      language: system
+      types: ["python"]
+      always_run: true
+      verbose: true
+    - id: check-data-write-env
+      alias: error
+      name: check-data-write-env
+      description: Check write env is always current and is takes from env variable
+      entry: python checks/check_data_write_env.py
+      language: system
+      types: ["python"]
+      always_run: true
+      verbose: true
