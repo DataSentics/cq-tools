@@ -1,5 +1,6 @@
 repos:
 -   repo: local
+    rev: d76d7750dcb27ffc5caba3318c46d7ed5a8bca3c
     hooks:
     - id: check-display-function
       alias: error
