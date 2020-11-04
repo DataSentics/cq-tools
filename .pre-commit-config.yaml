@@ -1,16 +1,15 @@
 repos:
 -   repo: local
-    rev: d76d7750dcb27ffc5caba3318c46d7ed5a8bca3c
     hooks:
-    - id: check-display-function
-      alias: error
-      name: check-display-function
-      description: Check presence of display() function
-      entry: python checks/check_display_function.py
+    - id: check-dummy
+      name: check-dummy
+      description: Always pass; code contains minimum structure required for a check 
+      entry: python checks/check_dummy.py
       language: system
       types: ["python"]
+      files: "py_scripts/.*"
       always_run: true
-      verbose: true
+
     - id: check-data-write-env
       alias: error
       name: check-data-write-env
@@ -18,5 +17,35 @@ repos:
       entry: python checks/check_data_write_env.py
       language: system
       types: ["python"]
+      files: "py_scripts/.*"
       always_run: true
-      verbose: true
+
+    - id: check-display-function
+      alias: error
+      name: check-display-function
+      description: Check presence of display() function
+      entry: python checks/check_display_function.py
+      language: system
+      types: ["python"]
+      files: "py_scripts/.*"
+      always_run: true
+
+    - id: check-magic-commands
+      alias: error
+      name: check-magic-commands
+      description: Check presence of magic commands
+      entry: python checks/check_magic_commands.py
+      language: system
+      types: ["python"]
+      files: "py_scripts/.*"
+      always_run: true
+    
+    - id: check-adaptive-query
+      alias: warning
+      name: check-adaptive-query
+      description: Check adaptive query optimization is turned on 
+      entry: python checks/check_adaptive_query.py
+      language: system
+      types: ["python"]
+      files: "py_scripts/.*"
+      always_run: true

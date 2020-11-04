@@ -10,13 +10,16 @@ def main(argv: Optional[Sequence[str]] = None) -> bool:
     parser.add_argument('filenames', nargs='*', help='Filenames to check.')
     args = parser.parse_args(argv)
 
-    return_flag = False; func_name = 'display'
+    return_flag = False
     for filename in args.filenames:
         with open(filename) as f:
             for line in f.readlines(): 
-                if line_contains_function(line, func_name):
-                    print(f'! {filename}: contains {func_name}() function')
-                    return_flag = True
+                magic = get_magic(line)
+                if not magic: continue
+                if magic in ['md']: continue
+                print(f'! {filename}: contains magic command "{magic}"')
+                return_flag = True
+            
     return return_flag
 
 
