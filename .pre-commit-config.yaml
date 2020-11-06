@@ -49,13 +49,73 @@ repos:
       types: ["python"]
       files: "py_scripts/.*"
       always_run: true
+    
+    - id: check-distinct-count
+      alias: warning
+      name: check-distinct-count
+      description: Contains distinct more than 5 times 
+      entry: python checks/check_distinct_count.py
+      language: system
+      types: ["python"]
+      files: "py_scripts/.*"
+      always_run: true  
 
-    - id: check-exec-function
-      alias: error
-      name: check-exec-function
-      description: Check presence of exec function
-      entry: python checks/check_exec_function.py
+    - id: check_cache_unpersist
+      alias: warning
+      name: check_cache_unpersist
+      description: Check that cache() and unpersist() are called same number of times
+      entry: python checks/check_cache_unpersist.py
       language: system
       types: ["python"]
       files: "py_scripts/.*"
       always_run: true
+
+    - id: check-hardcoded-env
+      alias: error
+      name: check-hardcoded-env
+      description: Contains hardcoded environment name
+      entry: python checks/check_hardcoded_env.py
+      language: system
+      types: ["python"]
+      files: "py_scripts/.*"
+      always_run: true
+
+-   repo: https://github.com/pre-commit/mirrors-pylint
+    rev: v2.3.1
+    hooks:
+    -   id: pylint
+        alias: warning
+        name: check-exec-function
+        description: Check presence of exec function
+        args:
+        - --max-line-length=80
+        - --ignore-imports=yes
+        - -d all
+        - -e W0122
+        - --score=no
+        types: ["python"]
+        files: "py_scripts/.*"
+    -   id: pylint
+        alias: warning
+        name: check-variable-error
+        description: Check variable assignment
+        args:
+        - --max-line-length=80
+        - --ignore-imports=yes
+        - -d all
+        - -e E0601,E0611
+        - --score=no
+        types: ["python"]
+        files: "py_scripts/.*"
+    -   id: pylint
+        alias: error
+        name: check-syntax-errors
+        description: Check syntax errors (except for variable errors)
+        args:
+        - --max-line-length=80
+        - --ignore-imports=yes
+        - -d all
+        - -e E01*,E02*,E03*,E04*,E05*,E07*,E08*,E09*,E1*
+        - --score=no
+        types: ["python"]
+        files: "py_scripts/.*"

@@ -14,8 +14,8 @@ def line_contains_function(line: str, f_name: str) -> bool:
     if re.match(r"^\s*{}\(".format(f_name), line):
         return True
 
-    # return value or semicolon
-    if re.match(r".*[\=|\;]\s*{}\(".format(f_name), line):
+    # return value or semicolon or object function
+    if re.match(r".*[\=|\;|\.]\s*{}\(".format(f_name), line):
         return True
     return False
 
@@ -33,4 +33,9 @@ def get_magic(line: str) -> bool:
     match = re.search(r"^\#\sMAGIC\s\%([^\s]+)", line)
     if match:
         return match.group(1)
+
+def line_contains_hardcoded_env_assignment(line: str, env_name: str) -> bool:
+    if re.match(r"[^\#\=]+\s*\=\s*[\"|\']{}[\"|\']\s*\;?$".format(env_name), line):
+        return True
+    return False
     

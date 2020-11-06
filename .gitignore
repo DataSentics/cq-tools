@@ -1,4 +1,4 @@
 .vscode
 __pycache__/*
 checks/__pycache__/*
-data/*
+py_scripts/__pycache__/*

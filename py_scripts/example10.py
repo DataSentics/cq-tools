@@ -1,6 +1,12 @@
 import sys
 
-exec("df_{}_{} = spark.table('{}')".format('fsfan' , 'profile_attribute_simple', table_name))
+df_distinct = df.select('source').distinct()
+df_distinct = df.select('source').distinct()
+df_distinct = df.select('source').distinct()
+df_distinct = df.select('source').distinct()
+df_distinct = df.select('source').distinct()
+df_distinct = df.select('source').distinct()
+
 
 
 if __name__ == "__main__":

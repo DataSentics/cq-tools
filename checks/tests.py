@@ -31,6 +31,9 @@ class TestStringMethods(unittest.TestCase):
     def test_str_contains_display_argument(self):
         self.assertTrue(line_contains_function('display("Argument")', 'display'))
     
+    def test_str_contains_function_obj(self):
+        self.assertTrue(line_contains_function('var.display("Argument")', 'display'))
+    
     def test_get_function_argument_return_value(self):
         s = 'table_name = get_table(table_name=\'{}_{}\'.format(input_layer,table), database_name = database_name, env=read_env)'
         write_table_name = get_function_argument(s, 'env')
@@ -136,7 +139,18 @@ class TestStringMethods(unittest.TestCase):
     def test_line_contains_adaptive_query_on_return_false_when_other_string(self):
         s = 'any other string'
         self.assertFalse(line_contains_adaptive_query_on(s))
+    
+    def test_contains_hardcoded_env_assignment_basic(self):
+        s = 'var ="prod"'
+        self.assertTrue(line_contains_hardcoded_env_assignment(s, 'prod'))
+    
+    def test_contains_hardcoded_env_assignment_false_when_comment(self):
+        s = '#var ="prod"'
+        self.assertFalse(line_contains_hardcoded_env_assignment(s, 'prod'))
 
+    def test_contains_hardcoded_env_assignment_false_when_contdition(self):
+        s = 'var =="prod"'
+        self.assertFalse(line_contains_hardcoded_env_assignment(s, 'prod'))
 
 if __name__ == '__main__':
     unittest.main()
