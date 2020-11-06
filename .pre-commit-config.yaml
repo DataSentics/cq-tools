@@ -13,7 +13,7 @@ repos:
     - id: check-data-write-env
       alias: error
       name: check-data-write-env
-      description: Check write env is always current and is takes from env variable
+      description: Check write env is always CURRENT_ENV and is takes from env. variable
       entry: python checks/check_data_write_env.py
       language: system
       types: ["python"]
@@ -35,6 +35,16 @@ repos:
       name: check-magic-commands
       description: Check presence of magic commands
       entry: python checks/check_magic_commands.py
+      language: system
+      types: ["python"]
+      files: "py_scripts/.*"
+      always_run: true
+    
+    - id: check-data-read-env
+      alias: error
+      name: check-data-read-env
+      description: Check read environment is defined by READ_ENV env. variable
+      entry: python checks/check_data_read_env.py
       language: system
       types: ["python"]
       files: "py_scripts/.*"
