@@ -7,6 +7,18 @@ class TestStringMethods(unittest.TestCase):
     def test_line_contains_function_base(self):
         self.assertTrue(line_contains_function('display()', 'display'))
 
+    def test_line_contains_function_return(self):
+        line = ' = get_table(table_name=my_table_name)'
+        self.assertTrue(line_contains_function(line, 'get_table'))
+
+    def test_line_contains_function_semicolon_return(self):
+        line = 'n=1; table_name = get_table(table_name=my_table_name)'
+        self.assertTrue(line_contains_function(line, 'get_table'))
+    
+    def test_line_contains_function_semicolon(self):
+        line = 'n=1; get_table(table_name=my_table_name)'
+        self.assertTrue(line_contains_function(line, 'get_table'))
+
     def test_str_contains_display_spaces(self):
         self.assertTrue(line_contains_function('     display()', 'display'))
     
@@ -19,10 +31,20 @@ class TestStringMethods(unittest.TestCase):
     def test_str_contains_display_argument(self):
         self.assertTrue(line_contains_function('display("Argument")', 'display'))
     
+    def test_get_function_argument_return_value(self):
+        s = 'table_name = get_table(table_name=\'{}_{}\'.format(input_layer,table), database_name = database_name, env=read_env)'
+        write_table_name = get_function_argument(s, 'env')
+        self.assertEqual(write_table_name, 'read_env')
+
     def test_get_function_argument_base(self):
         s = 'write_df(df=df, table_name=target_table, spark=spark)'
         write_table_name = get_function_argument(s, 'table_name')
         self.assertEqual(write_table_name, 'target_table')
+
+    def test_get_function_argument_signle(self):
+        s = 'write_df(argument_value)'
+        write_table_name = get_function_argument(s)
+        self.assertEqual(write_table_name, 'argument_value')
     
     def test_get_function_argument_extra_space(self):
         s = 'write_df(df=df, table_name=target_table , spark=spark)'

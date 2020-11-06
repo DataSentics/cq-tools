@@ -1,13 +1,21 @@
 
 import re
 
-def get_function_argument(line: str, arg_name:str) -> str:
-    match = re.search(r'{}\s?\=\s?(.+?)\s?[\,|\)]'.format(arg_name), line)
+def get_function_argument(line: str, arg_name=None) -> str:
+    if not arg_name:
+        match = re.search(r'\(\s*(.+?)\)', line)
+    else:
+        match = re.search(r'{}\s?\=\s?(.+?)\s?[\,|\)]'.format(arg_name), line)
     if match:
         return match.group(1)
 
 def line_contains_function(line: str, f_name: str) -> bool:
+    # new line
     if re.match(r"^\s*{}\(".format(f_name), line):
+        return True
+
+    # return value or semicolon
+    if re.match(r".*[\=|\;]\s*{}\(".format(f_name), line):
         return True
     return False
 

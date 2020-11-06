@@ -40,21 +40,21 @@ repos:
       files: "py_scripts/.*"
       always_run: true
     
-    - id: check-data-read-env
-      alias: error
-      name: check-data-read-env
-      description: Check read environment is defined by READ_ENV env. variable
-      entry: python checks/check_data_read_env.py
-      language: system
-      types: ["python"]
-      files: "py_scripts/.*"
-      always_run: true
-    
     - id: check-adaptive-query
       alias: warning
       name: check-adaptive-query
       description: Check adaptive query optimization is turned on 
       entry: python checks/check_adaptive_query.py
+      language: system
+      types: ["python"]
+      files: "py_scripts/.*"
+      always_run: true
+
+    - id: check-exec-function
+      alias: error
+      name: check-exec-function
+      description: Check presence of exec function
+      entry: python checks/check_exec_function.py
       language: system
       types: ["python"]
       files: "py_scripts/.*"
