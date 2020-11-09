@@ -5,11 +5,14 @@ help:
 	@echo " - make test (execute unit tests)"
 	@echo "------------------------------------"
 
-test:
-	python checks/tests.py
+test: 
+	poetry run python tests/main.py
+
+build: 
+	poetry build
 
 check-errors:
-	pre-commit run -a error
+	poetry run pre-commit run -a error
 
 check-warnings:
-	pre-commit run -a warning
+	poetry run pre-commit run -a warning
