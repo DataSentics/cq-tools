@@ -79,6 +79,16 @@ class TestStringMethods(unittest.TestCase):
         value = get_variable_value(s, 'df')
         self.assertEqual(value, '5')
     
+    def test_get_variable_value_int(self):
+        s = '#df = 5'
+        value = get_variable_value(s, 'df')
+        self.assertIsNone(value)
+    
+    def test_get_variable_value_space_before(self):
+        s = '   df = 5'
+        value = get_variable_value(s, 'df')
+        self.assertEqual(value, '5')
+    
     def test_get_variable_value_semicol(self):
         s = 'df = 5;'
         value = get_variable_value(s, 'df')

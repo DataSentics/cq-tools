@@ -25,9 +25,10 @@ def line_contains_adaptive_query_on(line: str) -> bool:
     return False
 
 def get_variable_value(line: str, var_name: str) -> str:
-    match = re.search(r'^{}\s?\=\s?(.+?)\s*\;?\s*$'.format(var_name), line)
+    match = re.search(r'^\s*{}\s?\=\s?(.+?)\s*\;?\s*$'.format(var_name), line)
     if match:
         return match.group(1)
+    
 
 def get_magic(line: str) -> bool:
     match = re.search(r"^\#\sMAGIC\s\%([^\s]+)", line)
