@@ -1,5 +1,5 @@
 import unittest
-from .cqtools.checks import *
+from cqtools.checks.utils import *
 
 class TestStringMethods(unittest.TestCase):
 

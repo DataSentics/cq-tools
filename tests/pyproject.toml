@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "tests"
+version = "0.1.0"
+description = ""
+authors = ["Anastasia Lebedeva <anastasia.lebedeva@datasentics.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+cqtools = {path = "../dist/cqtools-0.0.1-py3-none-any.whl"}
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

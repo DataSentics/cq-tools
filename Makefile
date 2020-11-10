@@ -6,7 +6,8 @@ help:
 	@echo "------------------------------------"
 
 test: 
-	poetry run python tests/main.py
+	make build && \
+	poetry run bash -c "cd tests && poetry update cqtools && python main.py"
 
 build: 
 	poetry build
