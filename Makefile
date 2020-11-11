@@ -5,6 +5,8 @@ help:
 	@echo " - make test (execute unit tests)"
 	@echo "------------------------------------"
 
+export CHECKS_LOCATION=cqtools/checks
+
 test: 
 	poetry run python -m pytest -s
 

@@ -3,7 +3,8 @@ import json
 from typing import Optional
 import re
 from typing import Sequence
-from utils import *
+from utils import line_contains_function, get_function_argument, get_variable_value
+import re
 
 def main(argv: Optional[Sequence[str]] = None) -> bool:
 
@@ -17,15 +18,30 @@ def main(argv: Optional[Sequence[str]] = None) -> bool:
         write_df_tables_vars = set()
         table_vars = set()
         env_vars = set()
+        line_concat_func = '' 
 
         with open(filename) as f:
             f_content = f.readlines()
-
             # get write_df func table_name variable value
-            for line in f_content: 
-                if line_contains_function(line, 'write_df'):
-                    arg = get_function_argument(line, 'table_name')
-                    if arg: write_df_tables_vars.add(arg)
+
+            for i in range(len(f_content)):
+                line = f_content[i]
+                
+                if not line_contains_function(line, 'write_df') and line_concat_func == '': continue
+                
+                # form the function string 
+                line_concat_func += line
+                
+                # if line end with comma (argument follows)
+                if re.match(r".*,\s*$", line): continue
+                
+                # find args and resent string 
+                arg = get_function_argument(line_concat_func, 'table_name')
+                line_concat_func = ''
+                if arg: 
+                    write_df_tables_vars.add(arg)
+                else:
+                    raise Warning(f"Argument table_name is missing: {line_concat_func}")
 
             # exit if is not called 
             if not write_df_tables_vars: continue
@@ -51,7 +67,7 @@ def main(argv: Optional[Sequence[str]] = None) -> bool:
                         print(f"! File {filename}: write_df is not done from 'CURRENT_ENV' env. variable. Found value is '{value}'")
                         return_flag = True
 
-    return return_flag
+    return True
                     
 
 if __name__ == '__main__':

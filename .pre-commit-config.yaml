@@ -2,75 +2,86 @@ repos:
 -   repo: local
     hooks:
     - id: check-dummy
+      alias: error
       name: check-dummy
       description: Always pass; code contains minimum structure required for a check 
-      entry: python checks/check_dummy.py
+      entry: python cqtools/checks/check_dummy.py
       language: system
       types: ["python"]
-      files: "py_scripts/.*"
+      files: "tests/test_files/*"
 
     - id: check-data-write-env
       alias: error
       name: check-data-write-env
       description: Check write env is always CURRENT_ENV and is takes from env. variable
-      entry: python checks/check_data_write_env.py
+      entry: python cqtools/checks/check_data_write_env.py
       language: system
       types: ["python"]
-      files: "py_scripts/.*"
+      files: "tests/test_files/*"
 
     - id: check-display-function
       alias: error
       name: check-display-function
       description: Check presence of display() function
-      entry: python checks/check_display_function.py
+      entry: python cqtools/checks/check_display_function.py
       language: system
       types: ["python"]
-      files: "py_scripts/.*"
+      files: "tests/test_files/*"
 
     - id: check-magic-commands
       alias: error
       name: check-magic-commands
       description: Check presence of magic commands
-      entry: python checks/check_magic_commands.py
+      entry: python cqtools/checks/check_magic_commands.py
       language: system
       types: ["python"]
-      files: "py_scripts/.*"
+      files: "tests/test_files/*"
     
     - id: check-adaptive-query
       alias: warning
       name: check-adaptive-query
       description: Check adaptive query optimization is turned on 
-      entry: python checks/check_adaptive_query.py
+      entry: python cqtools/checks/check_adaptive_query.py
       language: system
       types: ["python"]
-      files: "py_scripts/.*"
+      files: "tests/test_files/*"
     
     - id: check-distinct-count
       alias: warning
       name: check-distinct-count
       description: Contains distinct more than 5 times 
-      entry: python checks/check_distinct_count.py
+      entry: python cqtools/checks/check_distinct_count.py
       language: system
       types: ["python"]
-      files: "py_scripts/.*"
+      files: "tests/test_files/*"
 
     - id: check_cache_unpersist
       alias: warning
       name: check_cache_unpersist
       description: Check that cache() and unpersist() are called same number of times
-      entry: python checks/check_cache_unpersist.py
+      entry: python cqtools/checks/check_cache_unpersist.py
       language: system
       types: ["python"]
-      files: "py_scripts/.*"
+      files: "tests/test_files/*"
 
     - id: check-hardcoded-env
       alias: error
       name: check-hardcoded-env
       description: Contains hardcoded environment name
-      entry: python checks/check_hardcoded_env.py
+      entry: python cqtools/checks/check_hardcoded_env.py
       language: system
       types: ["python"]
-      files: "py_scripts/.*"
+      files: "tests/test_files/src/*"
+
+    - id: check-adf-executes-ntb1
+      alias: error
+      name: check-adf-executes-ntb1
+      description: Contains hardcoded environment name
+      entry: python cqtools/checks/check_adf_executes_ntb.py
+      language: system
+      types: ["file"]
+      files: tests\/test_files\/src\/job_.*\.(json|py)$
+      require_serial: true
 
 -   repo: https://github.com/pre-commit/mirrors-pylint
     rev: v2.3.1
@@ -86,7 +97,7 @@ repos:
         - -e W0122
         - --score=no
         types: ["python"]
-        files: "py_scripts/.*"
+        files: "tests/test_files/*"
     -   id: pylint
         alias: warning
         name: check-variable-error
@@ -98,7 +109,7 @@ repos:
         - -e E0601,E0611
         - --score=no
         types: ["python"]
-        files: "py_scripts/.*"
+        files: "tests/test_files/*"
     -   id: pylint
         alias: error
         name: check-syntax-errors
@@ -110,4 +121,4 @@ repos:
         - -e E01*,E02*,E03*,E04*,E05*,E07*,E08*,E09*,E1*
         - --score=no
         types: ["python"]
-        files: "py_scripts/.*"
+        files: "tests/test_files/*"

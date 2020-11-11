@@ -1,5 +1,6 @@
 
 import re
+import os
 
 def get_function_argument(line: str, arg_name=None) -> str:
     if not arg_name:
@@ -29,7 +30,6 @@ def get_variable_value(line: str, var_name: str) -> str:
     if match:
         return match.group(1)
     
-
 def get_magic(line: str) -> bool:
     match = re.search(r"^\#\sMAGIC\s\%([^\s]+)", line)
     if match:
@@ -40,3 +40,16 @@ def line_contains_hardcoded_env_assignment(line: str, env_name: str) -> bool:
         return True
     return False
     
+def convert_path_dbx_format(ntb_path: str):
+
+    path_list = ntb_path.split(os.sep)
+    try:
+        src_index = path_list.index("src")
+    except ValueError:
+        src_index = 0
+        print("The notebook is not located in src folder. Return the whole path")
+    
+    path_dbx = '/'.join(path_list[src_index:])
+    path_dbx_noextention = path_dbx.split('.')[0]
+
+    return path_dbx_noextention

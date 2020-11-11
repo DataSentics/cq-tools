@@ -1,0 +1,66 @@
+{
+	"name": "job_fsfan_work_response_website_cityzens_lastlocationcity",
+	"properties": {
+		"activities": [
+			{
+				"name": "job_fsfan_work_response_website_cityzens_lastlocationci",
+				"type": "DatabricksNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/src/job_ntb_example_with_pipeline",
+					"libraries": [
+						{
+							"pypi": {
+								"package": "shapely==1.6.4.post2"
+							}
+						}
+					]
+				},
+				"linkedServiceName": {
+					"referenceName": "bip-databricks",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "job_fsfan_work_response_website_cityzens_lastlocrep1",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "job_fsfan_work_response_website_cityzens_lastlocationci",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/src/job_ntb_example_with_pipeline2"
+				},
+				"linkedServiceName": {
+					"referenceName": "bip-databricks",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"folder": {
+			"name": "solutions/fsfan/work"
+		},
+		"annotations": []
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

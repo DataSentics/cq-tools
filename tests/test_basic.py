@@ -161,3 +161,13 @@ def test_contains_hardcoded_env_assignment_false_when_comment():
 def test_contains_hardcoded_env_assignment_false_when_contdition():
     s = 'var =="prod"'
     assert not utils.line_contains_hardcoded_env_assignment(s, 'prod')
+
+def test_convert_path_dbx_format_basic():
+    p = "/Users/lebedana/Documents/sources/cq-tools/tests/test_files/src/notebook_example.py"
+
+    assert utils.convert_path_dbx_format(p) == 'src/notebook_example'
+
+def test_convert_path_dbx_format_nosrc():
+    p = "/Users/lebedana/Documents/sources/cq-tools/tests/test_files/notebook_example.py"
+    r = "/Users/lebedana/Documents/sources/cq-tools/tests/test_files/notebook_example"
+    assert utils.convert_path_dbx_format(p) == r
