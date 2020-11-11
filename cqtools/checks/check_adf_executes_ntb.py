@@ -29,6 +29,7 @@ def main(argv: Optional[Sequence[str]] = None) -> bool:
             data = json.load(f)
 
             ntb_activities = data['properties']['activities']
+
             for a in ntb_activities:
                 
                 # continue only for dbx ntbs activities 

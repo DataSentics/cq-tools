@@ -1,0 +1,38 @@
+{
+	"name": "L4_pipeline_sdm_work",
+	"properties": {
+		"activities": [
+			{
+				"name": "job_sdm_work_see_transactions",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "job_cityzens_cleansed_interactions",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "job_sdm_work_sro_transactiontable",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "job_sdm_work_sro_transactiontable",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			}
+		],
+		"folder": {
+			"name": "solutions/sdm"
+		},
+		"annotations": []
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

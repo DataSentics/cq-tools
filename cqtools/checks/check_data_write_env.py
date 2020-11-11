@@ -67,7 +67,7 @@ def main(argv: Optional[Sequence[str]] = None) -> bool:
                         print(f"! File {filename}: write_df is not done from 'CURRENT_ENV' env. variable. Found value is '{value}'")
                         return_flag = True
 
-    return True
+    return return_flag
                     
 
 if __name__ == '__main__':

@@ -82,6 +82,16 @@ repos:
       types: ["file"]
       files: tests\/test_files\/src\/job_.*\.(json|py)$
       require_serial: true
+    
+    - id: check-adf-executes-pipeline
+      alias: error
+      name: check-adf-executes-pipeline
+      description: Contains hardcoded environment name
+      entry: python cqtools/checks/check_adf_executes_pipeline.py
+      language: system
+      types: ["file"]
+      files: tests\/test_files\/src\/.*\.(json)$
+      require_serial: true
 
 -   repo: https://github.com/pre-commit/mirrors-pylint
     rev: v2.3.1
