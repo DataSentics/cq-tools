@@ -1,0 +1,39 @@
+{
+	"name": "job_inforeach",
+	"properties": {
+		"activities": [
+			{
+				"name": "job_inforeach",
+				"type": "DatabricksNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/src/job_ntb_example_with_pipeline",
+					"libraries": [
+						{
+							"pypi": {
+								"package": "shapely==1.6.4.post2"
+							}
+						}
+					]
+				},
+				"linkedServiceName": {
+					"referenceName": "bip-databricks",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"folder": {
+			"name": "solutions/fsfan/work"
+		},
+		"annotations": []
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

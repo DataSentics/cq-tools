@@ -18,7 +18,7 @@ def main(argv: Optional[Sequence[str]] = None) -> bool:
                     line_contains_hardcoded_env_assignment(line, 'dev') or \
                     line_contains_hardcoded_env_assignment(line, 'test'):
 
-                    print(f'! {filename}: contains hardcoded environment assignment to a variable')
+                    print(f'! {filename}: probably contains hardcoded environment assignment to a variable')
                     return_flag = True
     return return_flag
 

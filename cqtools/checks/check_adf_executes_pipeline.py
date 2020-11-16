@@ -3,7 +3,7 @@ import json
 from typing import Optional
 import re
 from typing import Sequence
-from utils import convert_path_dbx_format
+from utils import (convert_path_dbx_format, find_dict, get_adf_activity_execute_pipeline_name)
 import json
 
 
@@ -28,24 +28,24 @@ def main(argv: Optional[Sequence[str]] = None) -> bool:
     for pipeline in pipelines_filenames:
         with open(pipeline) as f:
             data = json.load(f)
+            
+            # get all activities declaration withing the pipeline
+            pipeline_activities = find_dict('activities', data)
 
-            pipeline_activities = data['properties']['activities']
-
-            for a in pipeline_activities:
-                
-                # continue only for execute pipelines activities 
-                if not a['type'] == "ExecutePipeline": continue   
-                execute_pipeline_name = a['typeProperties']['pipeline']
-                # get value if required
-                if type(execute_pipeline_name) is dict:
-                    execute_pipeline_name = execute_pipeline_name['referenceName']
-
-                # add adf file name if not present 
-                if not pipeline in execute_pipeline_map.keys():
-                    execute_pipeline_map[pipeline] = []
-                # add the notebooks name
-                execute_pipeline_map[pipeline].append(execute_pipeline_name)
-                execute_pipeline_set.add(execute_pipeline_name)
+            # iterate over declarations
+            for alist in pipeline_activities:
+                # iterate over pipelines
+                for a in alist:
+                    # get execute pipeline name 
+                    execute_pipeline_name = get_adf_activity_execute_pipeline_name(a)
+                    # continue of no pipeline is executed withing the activity
+                    if not execute_pipeline_name: continue
+                    # add adf file name if not present 
+                    if not pipeline in execute_pipeline_map:
+                        execute_pipeline_map[pipeline] = []
+                    # add the notebooks name
+                    execute_pipeline_map[pipeline].append(execute_pipeline_name)
+                    execute_pipeline_set.add(execute_pipeline_name)
             
     # for each ntb estim its dbx name
     for job in job_filenames:

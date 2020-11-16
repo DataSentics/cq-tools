@@ -171,3 +171,24 @@ def test_convert_path_dbx_format_nosrc():
     p = "/Users/lebedana/Documents/sources/cq-tools/tests/test_files/notebook_example.py"
     r = "/Users/lebedana/Documents/sources/cq-tools/tests/test_files/notebook_example"
     assert utils.convert_path_dbx_format(p) == r
+
+
+def test_find_dict_activities_list():
+    d = {'k1': '', 'k2': [], 'k3': True}
+
+    v = list(utils.find_dict('k2', d))
+    assert len(v) == 1
+    assert v[0] == []
+
+def test_find_dict_activities_inner():
+    d = {'k1': '', 'k2': [{'k4': 'v4'}], 'k3': True}
+
+    v = list(utils.find_dict('k4', d))
+    assert len(v) == 1
+    assert v[0] == 'v4'
+
+def test_find_dict_activities_two_keys():
+    d = {'k1': '', 'k4': [{'k4': 'v4'}], 'k3': True}
+
+    v = list(utils.find_dict('k4', d))
+    assert len(v) == 2

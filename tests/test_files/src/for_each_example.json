@@ -1,0 +1,91 @@
+{
+	"name": "for_each_pipeline_speed_limits_out",
+	"properties": {
+		"activities": [
+			{
+				"name": "Set list of check groups",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "array_set_id",
+					"value": [
+						"[{\"id\":\"1\", \"cluster\": \"Standard_DS3_v2\", \"worker_count\": \"5\"}]",
+						" [{\"id\":\"2\", \"cluster\": \"Standard_DS12_v2\", \"worker_count\": \"5\"}]",
+						" [{\"id\":\"3\", \"cluster\": \"Standard_DS12_v2\", \"worker_count\": \"1\"}]",
+						" [{\"id\":\"4\", \"cluster\": \"Standard_DS12_v2\", \"worker_count\": \"4\"}]",
+						" [{\"id\":\"5\", \"cluster\": \"Standard_DS12_v2\", \"worker_count\": \"5\"}]",
+						" [{\"id\":\"6\", \"cluster\": \"Standard_DS4_v2\", \"worker_count\": \"8\"}]",
+						" [{\"id\":\"7\", \"cluster\": \"Standard_DS3_v2\", \"worker_count\": \"2\"}]",
+						" [{\"id\":\"8\", \"cluster\": \"Standard_DS3_v2\", \"worker_count\": \"1\"}]",
+						" [{\"id\":\"9\", \"cluster\": \"Standard_DS3_v2\", \"worker_count\": \"2\"}]",
+						" [{\"id\":\"10\", \"cluster\": \"Standard_DS3_v2\", \"worker_count\": \"1\"}]",
+						" [{\"id\":\"11\", \"cluster\": \"Standard_DS3_v2\", \"worker_count\": \"1\"}]",
+						" [{\"id\":\"12\", \"cluster\": \"Standard_F8s\", \"worker_count\": \"8\"}]"
+					]
+				}
+			},
+			{
+				"name": "ForEach_SET_ID",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Set list of check groups",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@variables('array_set_id')",
+						"type": "Expression"
+					},
+					"isSequential": false,
+					"activities": [
+						{
+							"name": "job_speed_limits_out_results",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "job_inforeach",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"SET_ID": {
+										"value": "@json(item())[0].id",
+										"type": "Expression"
+									},
+									"CLUSTER_TYPE": {
+										"value": "@json(item())[0].cluster",
+										"type": "Expression"
+									},
+									"WORKER_COUNT": {
+										"value": "@json(item())[0].worker_count",
+										"type": "Expression"
+									}
+								}
+							}
+						}
+					]
+				}
+			}
+		],
+		"variables": {
+			"array_set_id": {
+				"type": "Array"
+			},
+			"env": {
+				"type": "Array"
+			}
+		},
+		"folder": {
+			"name": "solutions/speed_limits/out"
+		},
+		"annotations": []
+	}
+}

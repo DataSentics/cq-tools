@@ -3,48 +3,47 @@ import json
 from typing import Optional
 import re
 from typing import Sequence
-from utils import convert_path_dbx_format
+from utils import (convert_path_dbx_format, find_dict)
 import json
-
+from config import ADF_PIPELINE_PATH
+import glob 
 
 def main(argv: Optional[Sequence[str]] = None) -> bool:
     parser = argparse.ArgumentParser()
     parser.add_argument('filenames', nargs='*', help='Filenames to check.')
     args = parser.parse_args(argv)
 
-    # split on adf and ntbs
-    ntb_filenames = []
-    adf_filenames = []
-    for f in args.filenames:
-        if re.match(".*\.py", f):
-            ntb_filenames.append(f)
-        else:
-            adf_filenames.append(f)
-
+    ntb_filenames = args.filenames
+    # get adf pipelines
+    if not ADF_PIPELINE_PATH: raise ValueError("ADF_PIPELINE_PATH (required env. environment variable) is None")
+    adf_filenames = [f for f in glob.glob(ADF_PIPELINE_PATH + "**/*.json", recursive=True)]
     adf_ntb_executed_map = {}
     ntbs_set = set()
+    return_flag=False
+
     # for each pipeline get the executing ntb name
     for adf_fname in adf_filenames:
         with open(adf_fname) as f:
             data = json.load(f)
 
-            ntb_activities = data['properties']['activities']
+            # get all activities declaration withing the pipeline
+            pipeline_activities = find_dict('activities', data)
 
-            for a in ntb_activities:
-                
-                # continue only for dbx ntbs activities 
-                if not a['type'] == "DatabricksNotebook": continue   
-                ntb_n = a['typeProperties']['notebookPath']
-                # get value if required
-                if type(ntb_n) is dict:
-                    ntb_n = ntb_n['value']
-
-                # add adf file name if not present 
-                if not adf_fname in adf_ntb_executed_map.keys():
-                    adf_ntb_executed_map[adf_fname] = []
-                # add the notebooks name
-                adf_ntb_executed_map[adf_fname].append(ntb_n)
-                ntbs_set.add(ntb_n)
+            # iterate over declarations
+            for alist in pipeline_activities:
+                # iterate over pipelines
+                for a in alist:
+                    # continue only for dbx ntbs activities 
+                    if not a['type'] == "DatabricksNotebook": continue   
+                    ntb_n = a['typeProperties']['notebookPath']
+                    # get value if required
+                    if type(ntb_n) is dict: ntb_n = ntb_n['value']
+                    # add adf file name if not present 
+                    if not adf_fname in adf_ntb_executed_map:
+                        adf_ntb_executed_map[adf_fname] = []
+                    # add the notebooks name
+                    adf_ntb_executed_map[adf_fname].append(ntb_n)
+                    ntbs_set.add(ntb_n)
             
     # for each ntb estim its dbx name
     for ntb_fname in ntb_filenames:

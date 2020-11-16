@@ -53,3 +53,25 @@ def convert_path_dbx_format(ntb_path: str):
     path_dbx_noextention = path_dbx.split('.')[0]
 
     return path_dbx_noextention
+
+
+def find_dict(key, dictionary):
+    for k, v in dictionary.items():
+        if k == key:
+            yield v 
+        if isinstance(v, dict):
+            for result in find_dict(key, v):
+                yield result
+        elif isinstance(v, list):
+            for d in v:
+                if isinstance(d, dict):
+                    for result in find_dict(key, d):
+                        yield result
+
+def get_adf_activity_execute_pipeline_name(activity: dict):
+    if activity['type'] == "ExecutePipeline":
+        pname = activity['typeProperties']['pipeline']
+        if type(pname) is dict: pname = pname['referenceName']
+        return pname
+        
+    return None

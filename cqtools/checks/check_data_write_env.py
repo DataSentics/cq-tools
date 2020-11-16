@@ -32,8 +32,8 @@ def main(argv: Optional[Sequence[str]] = None) -> bool:
                 # form the function string 
                 line_concat_func += line
                 
-                # if line end with comma (argument follows)
-                if re.match(r".*,\s*$", line): continue
+                # if line end with comma or opening bracket (argument follows)
+                if re.match(r".*[,|\(]\s*$", line): continue
                 
                 # find args and resent string 
                 arg = get_function_argument(line_concat_func, 'table_name')
@@ -41,7 +41,7 @@ def main(argv: Optional[Sequence[str]] = None) -> bool:
                 if arg: 
                     write_df_tables_vars.add(arg)
                 else:
-                    raise Warning(f"Argument table_name is missing: {line_concat_func}")
+                    raise Warning(f"Argument table_name is missing: {filename}")
 
             # exit if is not called 
             if not write_df_tables_vars: continue

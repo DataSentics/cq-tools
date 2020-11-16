@@ -3,6 +3,8 @@ help:
 	@echo " - make check-errors (check for possible errors)"
 	@echo " - make check-warnings (check for best practices)"
 	@echo " - make test (execute unit tests)"
+	@echo " - make build (build package)"
+	@echo " - make testpackage (build package and execute tests)"
 	@echo "------------------------------------"
 
 export CHECKS_LOCATION=cqtools/checks
@@ -17,6 +19,9 @@ testpackage:
 
 build: 
 	poetry build
+
+check-all:
+	poetry run pre-commit run -a
 
 check-errors:
 	poetry run pre-commit run -a error

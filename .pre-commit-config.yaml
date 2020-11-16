@@ -73,14 +73,14 @@ repos:
       types: ["python"]
       files: "tests/test_files/src/*"
 
-    - id: check-adf-executes-ntb1
+    - id: check-adf-executes-ntb
       alias: error
-      name: check-adf-executes-ntb1
+      name: check-adf-executes-ntb
       description: Contains hardcoded environment name
       entry: python cqtools/checks/check_adf_executes_ntb.py
       language: system
       types: ["file"]
-      files: tests\/test_files\/src\/job_.*\.(json|py)$
+      files: tests\/test_files\/src\/job_.*\.py$
       require_serial: true
     
     - id: check-adf-executes-pipeline
@@ -130,5 +130,16 @@ repos:
         - -d all
         - -e E01*,E02*,E03*,E04*,E05*,E07*,E08*,E09*,E1*
         - --score=no
+        types: ["python"]
+        files: "tests/test_files/*"
+
+-   repo: https://github.com/PyCQA/bandit
+    rev: 1.6.2
+    hooks:
+    -   id: bandit
+        alias: security
+        name: bandit
+        description: Run security linter
+        args: ['-r', '-a=file', '-q', '--format=custom', '--msg-template={abspath}: {line}: {test_id}[{severity}]: {msg}']
         types: ["python"]
         files: "tests/test_files/*"
