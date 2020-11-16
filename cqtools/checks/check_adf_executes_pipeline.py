@@ -3,7 +3,7 @@ import json
 from typing import Optional
 import re
 from typing import Sequence
-from utils import (convert_path_dbx_format, find_dict, get_adf_activity_execute_pipeline_name)
+from .utils import (convert_path_dbx_format, find_dict, get_adf_activity_execute_pipeline_name)
 import json
 
 
@@ -17,7 +17,7 @@ def main(argv: Optional[Sequence[str]] = None) -> bool:
     job_filenames = []
     pipelines_filenames = []
     for f in args.filenames:
-        if re.match(".*\/job_.*", f):
+        if re.match(".*/job_.*", f):
             job_filenames.append(f)
         else:
             pipelines_filenames.append(f)
@@ -49,12 +49,10 @@ def main(argv: Optional[Sequence[str]] = None) -> bool:
             
     # for each ntb estim its dbx name
     for job in job_filenames:
-
         # get activites name
         with open(job) as f:
             data = json.load(f)
             job_name = data['name']
-
             if not job_name in execute_pipeline_set:
                 return_flag = True
                 print('! No pipeline executing the job(pipeline) found {}'.format(job_name))

@@ -7,8 +7,8 @@ def get_function_argument(line: str, arg_name=None) -> str:
         match = re.search(r'\(\s*(.+?)\)', line)
     else:
         match = re.search(r'{}\s?\=\s?(.+?)\s?[\,|\)]'.format(arg_name), line)
-    if match:
-        return match.group(1)
+    if match: return match.group(1)
+    return None
 
 def line_contains_function(line: str, f_name: str) -> bool:
     # new line
@@ -29,11 +29,13 @@ def get_variable_value(line: str, var_name: str) -> str:
     match = re.search(r'^\s*{}\s?\=\s?(.+?)\s*\;?\s*$'.format(var_name), line)
     if match:
         return match.group(1)
+    return None
     
 def get_magic(line: str) -> bool:
     match = re.search(r"^\#\sMAGIC\s\%([^\s]+)", line)
     if match:
         return match.group(1)
+    return None
 
 def line_contains_hardcoded_env_assignment(line: str, env_name: str) -> bool:
     if re.match(r"[^\#\=]+\s*\=\s*[\"|\']{}[\"|\']\s*\;?$".format(env_name), line):
@@ -56,6 +58,7 @@ def convert_path_dbx_format(ntb_path: str):
 
 
 def find_dict(key, dictionary):
+    """ Returns all values of a given key in a dictionary """
     for k, v in dictionary.items():
         if k == key:
             yield v 

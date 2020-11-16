@@ -3,9 +3,9 @@ import json
 from typing import Optional
 import re
 from typing import Sequence
-from utils import (convert_path_dbx_format, find_dict)
+from .utils import (convert_path_dbx_format, find_dict)
 import json
-from config import ADF_PIPELINE_PATH
+from .config import ADF_PIPELINE_PATH
 import glob 
 
 def main(argv: Optional[Sequence[str]] = None) -> bool:

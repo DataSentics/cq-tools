@@ -3,7 +3,7 @@ import json
 from typing import Optional
 import re
 from typing import Sequence
-from utils import line_contains_function, get_function_argument, get_variable_value
+from .utils import (line_contains_function, get_function_argument, get_variable_value)
 import re
 
 def main(argv: Optional[Sequence[str]] = None) -> bool:
@@ -31,10 +31,8 @@ def main(argv: Optional[Sequence[str]] = None) -> bool:
                 
                 # form the function string 
                 line_concat_func += line
-                
                 # if line end with comma or opening bracket (argument follows)
                 if re.match(r".*[,|\(]\s*$", line): continue
-                
                 # find args and resent string 
                 arg = get_function_argument(line_concat_func, 'table_name')
                 line_concat_func = ''

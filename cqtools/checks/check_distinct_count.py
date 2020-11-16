@@ -3,7 +3,7 @@ import json
 from typing import Optional
 import re
 from typing import Sequence
-from utils import * 
+from .utils import line_contains_function 
 
 def main(argv: Optional[Sequence[str]] = None) -> bool:
     parser = argparse.ArgumentParser()
@@ -18,7 +18,7 @@ def main(argv: Optional[Sequence[str]] = None) -> bool:
                 if line_contains_function(line, func_name):
                     f_count += 1
             if f_count > 5:       
-                print(f'! {filename}: uses {func_name}() function more than 5 times')
+                print(f'! {filename}: uses {func_name}() function {f_count} times')
                 return_flag = True
     return return_flag
 
