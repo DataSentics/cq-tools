@@ -10,7 +10,7 @@ help:
 export CHECKS_LOCATION=cqtools/checks
 
 test: 
-	poetry run python -m pytest -s
+	poetry run python -m pytest 
 
 testpackage: 
 	make build && \

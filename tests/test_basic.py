@@ -1,8 +1,6 @@
-import pytest
 from cqtools.checks import utils 
 import sys
  
-
 def test_line_contains_function_base():
     assert utils.line_contains_function('display()', 'display')
 

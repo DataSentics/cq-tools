@@ -15,7 +15,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"notebookPath": "/src/job_ntb_example_with_pipeline",
+					"notebookPath": "/src/example_with_pipeline",
 					"libraries": [
 						{
 							"pypi": {
