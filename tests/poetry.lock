@@ -256,7 +256,7 @@ colorama = [
     {file = "colorama-0.4.4.tar.gz", hash = "sha256:5941b2b48a20143d2267e95b1c2a7603ce057ee39fd88e7329b0c292aa16869b"},
 ]
 cqtools = [
-    {file = "cqtools-0.0.1-py3-none-any.whl", hash = "sha256:8f3a3dc75853d1957696daf3a785efb917eecb77ffe71349061419eac9a64093"},
+    {file = "cqtools-0.0.1-py3-none-any.whl", hash = "sha256:9f5dcc99c2834922198a038d62483aac6cfe117f6cd48c5eb0543ea0236b6527"},
 ]
 distlib = [
     {file = "distlib-0.3.1-py2.py3-none-any.whl", hash = "sha256:8c09de2c67b3e7deef7184574fc060ab8a793e7adbb183d942c389c8b13c52fb"},

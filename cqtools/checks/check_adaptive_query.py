@@ -3,7 +3,7 @@ import json
 from typing import Optional
 import re
 from typing import Sequence
-from .utils import line_contains_adaptive_query_on 
+from cqtools.checks.utils import line_contains_adaptive_query_on 
 
 def main(argv: Optional[Sequence[str]] = None) -> bool:
     parser = argparse.ArgumentParser()

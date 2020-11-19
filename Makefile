@@ -7,10 +7,9 @@ help:
 	@echo " - make testpackage (build package and execute tests)"
 	@echo "------------------------------------"
 
-export CHECKS_LOCATION=cqtools/checks
-
 test: 
-	poetry run python -m pytest 
+	# export ADF_PIPELINE_PATH="tests/test_files/src"
+	poetry run python -m pytest
 
 testpackage: 
 	make build && \
@@ -28,3 +27,6 @@ check-errors:
 
 check-warnings:
 	poetry run pre-commit run -a warning
+
+check-security:
+	poetry run pre-commit run -a security

@@ -3,7 +3,7 @@ import json
 from typing import Optional
 import re
 from typing import Sequence
-from .utils import get_magic 
+from cqtools.checks.utils import get_magic 
 
 def main(argv: Optional[Sequence[str]] = None) -> bool:
     parser = argparse.ArgumentParser()

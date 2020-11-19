@@ -3,7 +3,7 @@ import json
 from typing import Optional
 import re
 from typing import Sequence
-from .utils import (line_contains_function, get_function_argument, get_variable_value)
+from cqtools.checks.utils import (line_contains_function, get_function_argument, get_variable_value)
 import re
 
 def main(argv: Optional[Sequence[str]] = None) -> bool:

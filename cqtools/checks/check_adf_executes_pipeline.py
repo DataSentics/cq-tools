@@ -3,9 +3,9 @@ import json
 from typing import Optional
 import re
 from typing import Sequence
-from .utils import (convert_path_dbx_format, find_dict, get_adf_activity_execute_pipeline_name)
 import json
-
+# TODO: fix import 
+from utils import (find_dict, get_adf_activity_execute_pipeline_name)
 
 def main(argv: Optional[Sequence[str]] = None) -> bool:
     parser = argparse.ArgumentParser()
