@@ -1,0 +1,74 @@
+
+- id: check-data-write-env
+  alias: error
+  name: check-data-write-env
+  description: Check write env is always CURRENT_ENV and is takes from env. variable
+  entry: python cqtools/checks/check_data_write_env.py
+  language: system
+  types: ["python"]
+
+- id: check-display-function
+  alias: error
+  name: check-display-function
+  description: Check presence of display() function
+  entry: python cqtools/checks/check_display_function.py
+  language: system
+  types: ["python"]
+
+- id: check-magic-commands
+  alias: error
+  name: check-magic-commands
+  description: Check presence of magic commands
+  entry: python cqtools/checks/check_magic_commands.py
+  language: system
+  types: ["python"]
+
+- id: check-adaptive-query
+  alias: warning
+  name: check-adaptive-query
+  description: Check adaptive query optimization is turned on 
+  entry: python cqtools/checks/check_adaptive_query.py
+  language: system
+  types: ["python"]
+
+- id: check-distinct-count
+  alias: warning
+  name: check-distinct-count
+  description: Contains distinct more than 5 times 
+  entry: python cqtools/checks/check_distinct_count.py
+  language: system
+  types: ["python"]
+
+- id: check_cache_unpersist
+  alias: warning
+  name: check_cache_unpersist
+  description: Check that cache() and unpersist() are called same number of times
+  entry: python cqtools/checks/check_cache_unpersist.py
+  language: system
+  types: ["python"]
+
+- id: check-hardcoded-env
+  alias: error
+  name: check-hardcoded-env
+  description: Contains hardcoded environment name
+  entry: python cqtools/checks/check_hardcoded_env.py
+  language: system
+  types: ["python"]
+
+- id: check-adf-executes-ntb
+  alias: error
+  name: check-adf-executes-ntb
+  description: Each notebook is executed within an ADF job 
+  entry: python cqtools/checks/check_adf_executes_ntb.py
+  language: system
+  types: ["file"]
+  require_serial: true
+
+- id: check-adf-executes-pipeline
+  alias: error
+  name: check-adf-executes-pipeline
+  description: Each ADF job is executed withing a pipeline
+  entry: python cqtools/checks/check_adf_executes_pipeline.py
+  language: system
+  types: ["file"]
+  require_serial: true

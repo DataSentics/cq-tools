@@ -8,25 +8,6 @@ help:
 	@echo "------------------------------------"
 
 test: 
-	# export ADF_PIPELINE_PATH="tests/test_files/src"
-	poetry run python -m pytest
-
-testpackage: 
-	make build && \
-	poetry run bash -c "cd tests && poetry update cqtools" && \
-	make test
-
+	poetry run bash -c "export ADF_PIPELINE_PATH="tests/test_files/src" && poetry run python -m pytest"	
 build: 
 	poetry build
-
-check-all:
-	poetry run pre-commit run -a
-
-check-errors:
-	poetry run pre-commit run -a error
-
-check-warnings:
-	poetry run pre-commit run -a warning
-
-check-security:
-	poetry run pre-commit run -a security
