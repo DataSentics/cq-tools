@@ -67,7 +67,7 @@ repos:
     - id: check-adf-executes-ntb
       alias: error
       name: check-adf-executes-ntb
-      description: Contains hardcoded environment name
+      description: Each notebook is executed within an ADF job 
       entry: python cqtools/checks/check_adf_executes_ntb.py
       language: system
       types: ["file"]
@@ -77,7 +77,7 @@ repos:
     - id: check-adf-executes-pipeline
       alias: error
       name: check-adf-executes-pipeline
-      description: Contains hardcoded environment name
+      description: Each ADF job is executed withing a pipeline
       entry: python cqtools/checks/check_adf_executes_pipeline.py
       language: system
       types: ["file"]
