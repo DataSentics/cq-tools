@@ -4,8 +4,7 @@ from typing import Optional
 import re
 from typing import Sequence
 import json
-# TODO: fix import 
-from utils import (find_dict, get_adf_activity_execute_pipeline_name)
+from cqtools.checks.utils import (find_dict, get_adf_activity_execute_pipeline_name)
 
 def main(argv: Optional[Sequence[str]] = None) -> bool:
     parser = argparse.ArgumentParser()
